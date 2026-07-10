@@ -7,20 +7,13 @@ module FrequencyDivider2 (
     input reset,
     output reg clk_out
 );
-    // внутреннее состояние (2 состояния)
-    reg s;
 
     always @(posedge clk_in) begin
         if (reset) begin
-            s <= 0;
+            clk_out <= 0;
         end
         else begin
-            // если внутреннее состояние не равно входному сигналу
-            // то на выход подаем 1 иначе 0 (частота в два раза меньше, т.к. всего состояний 4 а не два)
-            clk_out <= clk_in != s;
-
-            // меняем состояние
-            s <= ~s; 
+            clk_out <= ~clk_out;
         end
     end
 endmodule
