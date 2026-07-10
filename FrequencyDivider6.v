@@ -15,15 +15,11 @@ module FrequencyDivider6 (
             s <= 0;
             clk_out <= 0;
         end
-        else begin 
-            if (s == 2) begin // если мы прождали 3 такта, то меняем состояние на противоположное
-                s <= 0;
-                clk_out <= ~clk_out;
-            end
-            else begin // иначе оставляем то же состояние
-                s <= s + 1;
-                clk_out <= clk_out;
-            end
+        else begin
+            // s==2 если мы прождали 3 такта, значит можно
+            // сбрасывать состояние и переключать наш меандр
+            s       <= (s == 2) ? 0 : s + 1;
+            clk_out <= (s == 2) ? ~clk_out : clk_out;
         end
     end
 endmodule
